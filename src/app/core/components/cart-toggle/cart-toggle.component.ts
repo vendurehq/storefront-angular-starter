@@ -9,8 +9,8 @@ import { StateService } from '../../providers/state/state.service';
 import { GET_CART_TOTALS } from './cart-toggle.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-cart-toggle',
+    standalone: false,
+    selector: 'vsf-cart-toggle',
     templateUrl: './cart-toggle.component.html',
     styleUrls: ['./cart-toggle.component.scss'],
 })

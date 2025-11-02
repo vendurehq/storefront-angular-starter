@@ -8,8 +8,8 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { RESET_PASSWORD } from './reset-password.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-reset-password',
+    standalone: false,
+    selector: 'vsf-reset-password',
     templateUrl: './reset-password.component.html',
     // styleUrls: ['./reset-password.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

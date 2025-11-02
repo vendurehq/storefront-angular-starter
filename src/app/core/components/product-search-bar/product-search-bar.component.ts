@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-product-search-bar',
+    standalone: false,
+    selector: 'vsf-product-search-bar',
     templateUrl: './product-search-bar.component.html',
     // styleUrls: ['./product-search-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

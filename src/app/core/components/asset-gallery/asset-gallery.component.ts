@@ -10,8 +10,8 @@ import { isPlatformBrowser } from '@angular/common';
 export type AssetWithDimensions = Pick<AssetFragment, 'id' | 'preview' | 'width' | 'height'>;
 
 @Component({
-  standalone: false,
-  selector: 'vsf-asset-gallery',
+    standalone: false,
+    selector: 'vsf-asset-gallery',
     templateUrl: './asset-gallery.component.html',
     styleUrls: ['./asset-gallery.component.scss'],
 })

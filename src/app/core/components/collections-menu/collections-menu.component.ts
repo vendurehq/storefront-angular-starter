@@ -14,8 +14,8 @@ import { arrayToTree, RootNode, TreeNode } from './array-to-tree';
 type CollectionItem = GetCollectionsQuery['collections']['items'][number];
 
 @Component({
-  standalone: false,
-  selector: 'vsf-collections-menu',
+    standalone: false,
+    selector: 'vsf-collections-menu',
     templateUrl: './collections-menu.component.html',
     // styleUrls: ['./collections-menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

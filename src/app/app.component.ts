@@ -9,8 +9,8 @@ import { DataService } from './core/providers/data/data.service';
 import { StateService } from './core/providers/state/state.service';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-root',
+    standalone: false,
+    selector: 'vsf-root',
     templateUrl: './app.component.html',
     // styleUrls: ['./app.component.scss'],
 })

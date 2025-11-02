@@ -11,8 +11,8 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { GET_ACCOUNT_OVERVIEW } from './account-dashboard.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-account-dashboard',
+    standalone: false,
+    selector: 'vsf-account-dashboard',
     templateUrl: './account-dashboard.component.html',
     // styleUrls: ['./account-dashboard.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

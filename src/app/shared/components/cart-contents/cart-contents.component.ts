@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 import { CartFragment, GetActiveOrderQuery } from '../../../common/generated-types';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-cart-contents',
+    standalone: false,
+    selector: 'vsf-cart-contents',
     templateUrl: './cart-contents.component.html',
     // styleUrls: ['./cart-contents.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

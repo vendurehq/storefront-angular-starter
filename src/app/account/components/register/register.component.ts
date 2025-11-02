@@ -6,8 +6,8 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { REGISTER } from './register.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-register',
+    standalone: false,
+    selector: 'vsf-register',
     templateUrl: './register.component.html',
     // styleUrls: ['./register.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

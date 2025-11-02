@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/cor
 import { StateService } from '../../providers/state/state.service';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-mobile-menu-toggle',
+    standalone: false,
+    selector: 'vsf-mobile-menu-toggle',
     templateUrl: './mobile-menu-toggle.component.html',
     // styleUrls: ['./mobile-menu-toggle.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

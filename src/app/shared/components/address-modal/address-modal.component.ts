@@ -16,8 +16,8 @@ import { Dialog } from '../../../core/providers/modal/modal-types';
 import { CREATE_ADDRESS } from './address-modal.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-address-modal',
+    standalone: false,
+    selector: 'vsf-address-modal',
     templateUrl: './address-modal.component.html',
     // styleUrls: ['./address-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,

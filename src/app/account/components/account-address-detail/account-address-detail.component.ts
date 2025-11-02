@@ -18,8 +18,8 @@ import { AddressFormComponent } from '../../../shared/components/address-form/ad
 import { UPDATE_ADDRESS } from './account-address-detail.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-account-address-detail',
+    standalone: false,
+    selector: 'vsf-account-address-detail',
     templateUrl: './account-address-detail.component.html',
     // styleUrls: ['./account-address-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

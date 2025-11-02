@@ -3,8 +3,8 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime, throttleTime } from 'rxjs/operators';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-radio-card-fieldset',
+    standalone: false,
+    selector: 'vsf-radio-card-fieldset',
     template: `<fieldset><ng-content></ng-content></fieldset> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

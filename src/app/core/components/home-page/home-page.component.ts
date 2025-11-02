@@ -9,8 +9,8 @@ import { GetCollectionsQuery } from '../../../common/generated-types';
 import { DataService } from '../../providers/data/data.service';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-home-page',
+    standalone: false,
+    selector: 'vsf-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

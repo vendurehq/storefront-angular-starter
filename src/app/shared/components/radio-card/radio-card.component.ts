@@ -4,8 +4,8 @@ import { Subject, Subscription } from 'rxjs';
 import { RadioCardFieldsetComponent } from './radio-card-fieldset.component';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-radio-card',
+    standalone: false,
+    selector: 'vsf-radio-card',
     templateUrl: './radio-card.component.html',
     styleUrls: ['./radio-card.component.scss'],
     exportAs: 'KbRadioCard',

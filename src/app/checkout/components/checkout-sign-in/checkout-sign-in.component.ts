@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-checkout-sign-in',
+    standalone: false,
+    selector: 'vsf-checkout-sign-in',
     templateUrl: './checkout-sign-in.component.html',
     styleUrls: ['./checkout-sign-in.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

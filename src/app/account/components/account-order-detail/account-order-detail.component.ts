@@ -10,8 +10,8 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { GET_ORDER } from './account-order-detail.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-account-order-detail',
+    standalone: false,
+    selector: 'vsf-account-order-detail',
     templateUrl: './account-order-detail.component.html',
     styleUrls: ['./account-order-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,8 +4,8 @@ import { Component, ComponentFactoryResolver, EventEmitter, Input, OnInit, Outpu
  * A helper component used to embed a component instance into the {@link ModalDialogComponent}
  */
 @Component({
-  standalone: false,
-  selector: 'vsf-dialog-component-outlet',
+    standalone: false,
+    selector: 'vsf-dialog-component-outlet',
     template: ``,
 })
 export class DialogComponentOutletComponent implements OnInit {

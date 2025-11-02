@@ -25,8 +25,8 @@ export type DropdownPosition = 'top' | 'right' | 'bottom' | 'left' | 'top-left' 
  * ```
  */
 @Component({
-  standalone: false,
-  selector: 'vsf-dropdown',
+    standalone: false,
+    selector: 'vsf-dropdown',
     templateUrl: './dropdown.component.html',
     // styleUrls: ['./dropdown.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

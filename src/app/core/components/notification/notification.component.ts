@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 import { NotificationOptions, NOTIFICATION_OPTIONS } from '../../providers/notification/notification-types';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-notification',
+    standalone: false,
+    selector: 'vsf-notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

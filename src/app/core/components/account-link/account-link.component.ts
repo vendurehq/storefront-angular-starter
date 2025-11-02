@@ -8,8 +8,8 @@ import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-account-link',
+    standalone: false,
+    selector: 'vsf-account-link',
     templateUrl: './account-link.component.html',
     // styleUrls: ['./account-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

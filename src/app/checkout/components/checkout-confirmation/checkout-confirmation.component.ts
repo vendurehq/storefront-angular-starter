@@ -17,8 +17,8 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { GET_ORDER_BY_CODE } from './checkout-confirmation.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-checkout-confirmation',
+    standalone: false,
+    selector: 'vsf-checkout-confirmation',
     templateUrl: './checkout-confirmation.component.html',
     // styleUrls: ['./checkout-confirmation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

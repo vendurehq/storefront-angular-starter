@@ -16,8 +16,8 @@ import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART } from './cart-drawer.graph
 import { ActiveService } from '../../providers/active/active.service';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-cart-drawer',
+    standalone: false,
+    selector: 'vsf-cart-drawer',
     templateUrl: './cart-drawer.component.html',
     styleUrls: ['./cart-drawer.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -8,8 +8,8 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { VERIFY } from './verify.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-verify',
+    standalone: false,
+    selector: 'vsf-verify',
     templateUrl: './verify.component.html',
     // styleUrls: ['./verify.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,

@@ -7,8 +7,8 @@ import { GET_CUSTOMER_ADDRESSES } from '../../../common/graphql/documents.graphq
 import { DataService } from '../../../core/providers/data/data.service';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-account-address-book',
+    standalone: false,
+    selector: 'vsf-account-address-book',
     templateUrl: './account-address-book.component.html',
     // styleUrls: ['./account-address-book.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

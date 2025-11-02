@@ -15,8 +15,8 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { UPDATE_CUSTOMER_DETAILS } from './account-customer-details.graphql';
 
 @Component({
-  standalone: false,
-  selector: 'vsf-account-customer-details',
+    standalone: false,
+    selector: 'vsf-account-customer-details',
     templateUrl: './account-customer-details.component.html',
     // styleUrls: ['./account-customer-details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
