@@ -12,7 +12,7 @@ The app is built with the [Angular CLI](https://github.com/angular/angular-cli),
 1. Run `npm install` or `yarn` in the root dir
 2. Run `npm start` or `yarn start` to build in development mode.
 3. Make sure you have a local Vendure instance running a `http://localhost:3000`.
-4. Open `http://localhost:4200` to see the storefront app running.
+4. Open `http://localhost:4201` to see the storefront app running.
 
 ## Code generation
 
