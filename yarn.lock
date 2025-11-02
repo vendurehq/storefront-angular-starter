@@ -237,7 +237,7 @@
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "20.5.0"
 
-"@angular/animations@^20.0.4", "@angular/animations@^20.3.9", "@angular/animations@20.3.9":
+"@angular/animations@^20.3.9", "@angular/animations@20.3.9":
   version "20.3.9"
   resolved "https://registry.npmjs.org/@angular/animations/-/animations-20.3.9.tgz"
   integrity sha512-ckpRdtRV16u96ULipXTF0ZTMSe3kBZL7+Q6OYi2AsNPlrO4CUhdM8XWH0CE2lZVDkg7XNstjswfikeH8UaQVTw==
@@ -278,7 +278,7 @@
   optionalDependencies:
     lmdb "3.4.2"
 
-"@angular/cdk@^20.0.3", "@angular/cdk@^20.2.10":
+"@angular/cdk@^20.2.10":
   version "20.2.10"
   resolved "https://registry.npmjs.org/@angular/cdk/-/cdk-20.2.10.tgz"
   integrity sha512-d95C2r3JP11KCahouWmPaxswz/EE7Zn1k8ocoGt70jl33x42Sg96vAHeOpnQ4yfrdA4W7Q+eWB/NqqvAGCzOPQ==
@@ -310,7 +310,7 @@
     yargs "18.0.0"
     zod "3.25.76"
 
-"@angular/common@^20.0.0", "@angular/common@^20.0.0 || ^21.0.0", "@angular/common@^20.0.4", "@angular/common@^20.3.9", "@angular/common@20.3.9":
+"@angular/common@^20.0.0", "@angular/common@^20.0.0 || ^21.0.0", "@angular/common@^20.3.9", "@angular/common@20.3.9":
   version "20.3.9"
   resolved "https://registry.npmjs.org/@angular/common/-/common-20.3.9.tgz"
   integrity sha512-PgKEnv30TxvpfTJ3d4h5LEjUHpKSYcs3Rc4OvK7p5A7waBkXzfqCBmy54nomzfcf4dlEjb6wSoXxlJbR7Y34Iw==
@@ -343,7 +343,7 @@
   resolved "https://registry.npmjs.org/@angular/compiler/-/compiler-9.0.0.tgz"
   integrity sha512-ctjwuntPfZZT2mNj2NDIVu51t9cvbhl/16epc5xEwyzyDt76pX9UgwvY+MbXrf/C/FWwdtmNtfP698BKI+9leQ==
 
-"@angular/core@^18.0.0 || ^19.0.0 || ^20.0.0", "@angular/core@^20.0.0", "@angular/core@^20.0.0 || ^21.0.0", "@angular/core@^20.0.4", "@angular/core@^20.3.9", "@angular/core@20.3.9":
+"@angular/core@^18.0.0 || ^19.0.0 || ^20.0.0", "@angular/core@^20.0.0", "@angular/core@^20.0.0 || ^21.0.0", "@angular/core@^20.3.9", "@angular/core@20.3.9":
   version "20.3.9"
   resolved "https://registry.npmjs.org/@angular/core/-/core-20.3.9.tgz"
   integrity sha512-zZb7wUexBIIUojr1helzXsL25ilAoASm8aPOjBNHPLYr4ndDjMD/wogmH/dA7EzuCdmZf30ZmZZpuX149WdrpA==
@@ -355,7 +355,7 @@
   resolved "https://registry.npmjs.org/@angular/core/-/core-9.0.0.tgz"
   integrity sha512-6Pxgsrf0qF9iFFqmIcWmjJGkkCaCm6V5QNnxMy2KloO3SDq6QuMVRbN9RtC8Urmo25LP+eZ6ZgYqFYpdD8Hd9w==
 
-"@angular/forms@^20.0.4", "@angular/forms@^20.3.9":
+"@angular/forms@^20.3.9":
   version "20.3.9"
   resolved "https://registry.npmjs.org/@angular/forms/-/forms-20.3.9.tgz"
   integrity sha512-jSlhU1IyuxxSYNN5Gg3oBb0nAqIl5Mwf1hywtkbyMay+3sENYGvBRseWp00R308isKe+n8bKi6hF54A1lhozzg==
@@ -374,7 +374,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/platform-browser@^20.0.0", "@angular/platform-browser@^20.0.4", "@angular/platform-browser@^20.3.9", "@angular/platform-browser@20.3.9":
+"@angular/platform-browser@^20.0.0", "@angular/platform-browser@^20.3.9", "@angular/platform-browser@20.3.9":
   version "20.3.9"
   resolved "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-20.3.9.tgz"
   integrity sha512-q9uyNIKto3PmIh3q9/OX0HYN/SMYqCJ7MyQHBuF9Rel0vXi0gWyk2dgsWAl/tSTLlqHWtGZZ3rvJyxYQmxFo4w==
@@ -389,7 +389,7 @@
     tslib "^2.3.0"
     xhr2 "^0.2.0"
 
-"@angular/router@^20.0.0", "@angular/router@^20.0.4", "@angular/router@^20.3.9":
+"@angular/router@^20.0.0", "@angular/router@^20.3.9":
   version "20.3.9"
   resolved "https://registry.npmjs.org/@angular/router/-/router-20.3.9.tgz"
   integrity sha512-wsilSrTtR85OFd6XP0b9rMakx1pEw5sHEYBrfoSQc+NfYCsP5a5qFBJ5CWOQKgWjKlfPgpkaheD6JdqN9WpFoQ==
@@ -1858,32 +1858,6 @@
   version "0.11.0"
   resolved "https://registry.npmjs.org/@pkgjs/parseargs/-/parseargs-0.11.0.tgz"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
-
-"@primeuix/styled@^0.7.3":
-  version "0.7.4"
-  resolved "https://registry.npmjs.org/@primeuix/styled/-/styled-0.7.4.tgz"
-  integrity sha512-QSO/NpOQg8e9BONWRBx9y8VGMCMYz0J/uKfNJEya/RGEu7ARx0oYW0ugI1N3/KB1AAvyGxzKBzGImbwg0KUiOQ==
-  dependencies:
-    "@primeuix/utils" "^0.6.1"
-
-"@primeuix/styles@^1.2.4":
-  version "1.2.5"
-  resolved "https://registry.npmjs.org/@primeuix/styles/-/styles-1.2.5.tgz"
-  integrity sha512-nypFRct/oaaBZqP4jinT0puW8ZIfs4u+l/vqUFmJEPU332fl5ePj6DoOpQgTLzo3OfmvSmz5a5/5b4OJJmmi7Q==
-  dependencies:
-    "@primeuix/styled" "^0.7.3"
-
-"@primeuix/themes@^1.2.5":
-  version "1.2.5"
-  resolved "https://registry.npmjs.org/@primeuix/themes/-/themes-1.2.5.tgz"
-  integrity sha512-n3YkwJrHQaEESc/D/A/iD815sxp8cKnmzscA6a8Tm8YvMtYU32eCahwLLe6h5rywghVwxASWuG36XBgISYOIjQ==
-  dependencies:
-    "@primeuix/styled" "^0.7.3"
-
-"@primeuix/utils@^0.6.1":
-  version "0.6.2"
-  resolved "https://registry.npmjs.org/@primeuix/utils/-/utils-0.6.2.tgz"
-  integrity sha512-l+li4z6UAwamqbu4xodN3lqr1G4S37DKEJ7Y/nE3MjEx7zJ+KIBkb5voF26Nuly1UCmIcRWQJokhLRF7+sRhyg==
 
 "@repeaterjs/repeater@^3.0.4", "@repeaterjs/repeater@3.0.4":
   version "3.0.4"
@@ -6887,16 +6861,6 @@ prelude-ls@^1.2.1:
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-primeng@^20.2.0:
-  version "20.2.0"
-  resolved "https://registry.npmjs.org/primeng/-/primeng-20.2.0.tgz"
-  integrity sha512-SXdL5dY+YWaCt1jRFqf4EUVhyVlhYV0MjLeke/UeLx/Od0+06Ru33MLQe2Ul7o/vAmItbh+OvRTu7jEk5LMjqQ==
-  dependencies:
-    "@primeuix/styled" "^0.7.3"
-    "@primeuix/styles" "^1.2.4"
-    "@primeuix/utils" "^0.6.1"
-    tslib "^2.3.0"
-
 proc-log@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/proc-log/-/proc-log-5.0.0.tgz"
@@ -7258,7 +7222,7 @@ rx@4.1.0:
   resolved "https://registry.npmjs.org/rx/-/rx-4.1.0.tgz"
   integrity sha512-CiaiuN6gapkdl+cZUr67W6I8jquN4lkak3vtIsIWCl4XIPP8ffsoyN6/+PuGXnQy8Cu8W2y9Xxh31Rq4M6wUug==
 
-"rxjs@^6.0.0 || ^7.8.1", "rxjs@^6.5.3 || ^7.4.0", rxjs@^7.3.0, rxjs@^7.4.0, rxjs@^7.5.5, rxjs@^7.8.1, rxjs@7.8.2:
+"rxjs@^6.5.3 || ^7.4.0", rxjs@^7.3.0, rxjs@^7.4.0, rxjs@^7.5.5, rxjs@^7.8.1, rxjs@7.8.2:
   version "7.8.2"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.8.2.tgz"
   integrity sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==

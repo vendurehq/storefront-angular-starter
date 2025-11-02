@@ -4,9 +4,6 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { NavigationEnd, Router, RouterModule, UrlSerializer } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
-
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
 import { HomePageComponent } from './core/components/home-page/home-page.component';
@@ -33,12 +30,7 @@ import { SharedModule } from './shared/shared.module';
     bootstrap: [AppComponent],
     providers: [
         // Enable client-side hydration for SSR
-        provideClientHydration(),
-        providePrimeNG({
-            theme: {
-                preset: Aura
-            }
-        })
+        provideClientHydration()
     ]
 })
 export class AppModule {
