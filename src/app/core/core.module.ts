@@ -1,15 +1,21 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { ApolloModule } from 'apollo-angular';
+import { provideApollo } from 'apollo-angular';
+import { ApolloClient } from '@apollo/client/core';
+import { inject } from '@angular/core';
+import { HttpLink } from 'apollo-angular/http';
+import { PLATFORM_ID, TransferState } from '@angular/core';
+import { REQUEST } from '../../express.tokens';
+import type { Request } from 'express';
+import { apolloOptionsFactory } from './apollo-client-provider';
 
 
 import { environment } from '../../environments/environment';
 import { SharedModule } from '../shared/shared.module';
 
-import { APOLLO_CLIENT_PROVIDER } from './apollo-client-provider';
+// Apollo client is provided via provideApollo below using apolloOptionsFactory
 import { AccountLinkComponent } from './components/account-link/account-link.component';
 import { AssetGalleryComponent } from './components/asset-gallery/asset-gallery.component';
 import { CartDrawerComponent } from './components/cart-drawer/cart-drawer.component';
@@ -54,23 +60,32 @@ const CORE_COMPONENTS = [
         ...CORE_COMPONENTS,
         TopReviewsComponent,
     ],
+    exports: [
+        ...CORE_COMPONENTS,
+    ],
     imports: [
-        HttpClientModule,
         SharedModule,
-        BrowserModule,
-        ApolloModule,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
         { provide: APP_BASE_HREF, useValue: environment.baseHref },
-        APOLLO_CLIENT_PROVIDER,
-    ],
-    exports: [
-        ...CORE_COMPONENTS,
-    ],
-})
+        // Ensure HttpLink is available even without an NgModule
+        { provide: HttpLink, useFactory: () => new HttpLink(inject(HttpClient)) },
+        // Enable fetch for SSR performance/compat and keep DI interceptors
+        provideHttpClient(withFetch(), withInterceptorsFromDi()),
+        provideApollo(() => new ApolloClient(
+            apolloOptionsFactory(
+                inject(HttpLink),
+                inject(PLATFORM_ID),
+                inject(TransferState),
+                inject<Request | null>(REQUEST, { optional: true }) || undefined,
+            )
+        )),
+    ] })
 export class CoreModule {
-    constructor(library: FaIconLibrary) {
+    constructor() {
+        const library = inject(FaIconLibrary);
+
         buildIconLibrary(library);
     }
 }

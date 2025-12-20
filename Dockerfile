@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:22
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 WORKDIR /home/node/app
 RUN npm install pm2 -g --unsafe-perm

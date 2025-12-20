@@ -1,6 +1,6 @@
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { Injectable, Injector } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { Injectable, Injector, inject } from '@angular/core';
 import { race, timer } from 'rxjs';
 import { finalize, mapTo, take } from 'rxjs/operators';
 
@@ -14,8 +14,9 @@ import { NOTIFICATION_OPTIONS, NotificationOptions } from './notification-types'
  */
 @Injectable({providedIn: 'root'})
 export class NotificationService {
-    constructor(private overlay: Overlay, private injector: Injector) {
-    }
+    private overlay = inject(Overlay);
+    private injector = inject(Injector);
+
 
     /**
      * Display a "toast" notification.
@@ -80,12 +81,16 @@ export class NotificationService {
         });
     }
 
-    private createInjector(options: NotificationOptions, closeFn: () => void): PortalInjector {
+    private createInjector(options: NotificationOptions, closeFn: () => void): Injector {
         options.templateContext = {
             ...options.templateContext,
             closeFn,
         };
-        const weakMap = new WeakMap<any, any>([[NOTIFICATION_OPTIONS, options]]);
-        return new PortalInjector(this.injector, weakMap);
+        return Injector.create({
+            providers: [
+                { provide: NOTIFICATION_OPTIONS, useValue: options }
+            ],
+            parent: this.injector
+        });
     }
 }

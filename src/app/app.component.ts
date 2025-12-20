@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -9,11 +9,16 @@ import { DataService } from './core/providers/data/data.service';
 import { StateService } from './core/providers/state/state.service';
 
 @Component({
+    standalone: false,
     selector: 'vsf-root',
     templateUrl: './app.component.html',
     // styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+    private router = inject(Router);
+    private stateService = inject(StateService);
+    private dataService = inject(DataService);
+
     cartDrawerVisible$: Observable<boolean>;
     mobileNavVisible$: Observable<boolean>;
     isHomePage$: Observable<boolean>;
@@ -33,11 +38,6 @@ export class AppComponent implements OnInit {
             {name: 'Press', href: '#'},
         ],
     };
-
-    constructor(private router: Router,
-                private stateService: StateService,
-                private dataService: DataService) {
-    }
 
     ngOnInit(): void {
         this.cartDrawerVisible$ = this.stateService.select(state => state.cartDrawerOpen);

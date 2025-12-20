@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -11,17 +11,19 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { GET_ACCOUNT_OVERVIEW } from './account-dashboard.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-account-dashboard',
     templateUrl: './account-dashboard.component.html',
     // styleUrls: ['./account-dashboard.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountDashboardComponent implements OnInit {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private router = inject(Router);
+
 
     activeCustomer$: Observable<GetAccountOverviewQuery['activeCustomer']>;
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private router: Router) { }
 
     ngOnInit() {
         this.activeCustomer$ = this.dataService.query<GetAccountOverviewQuery>(GET_ACCOUNT_OVERVIEW).pipe(

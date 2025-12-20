@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 
 import {
     ChangeEmailAddressMutation,
@@ -11,20 +11,21 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { CHANGE_EMAIL_ADDRESS, CHANGE_PASSWORD } from './account-change-credentials.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-account-change-credentials',
     templateUrl: './account-change-credentials.component.html',
     // styleUrls: ['./account-change-credentials.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountChangeCredentialsComponent {
+    private dataService = inject(DataService);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
     currentPassword = '';
     newPassword = '';
     password = '';
     emailAddress = '';
     changeEmailAddressMessage = '';
-
-    constructor(private dataService: DataService, private changeDetectorRef: ChangeDetectorRef) {
-    }
 
     changePassword() {
         this.dataService.mutate<ChangePasswordMutation, ChangePasswordMutationVariables>(CHANGE_PASSWORD, {

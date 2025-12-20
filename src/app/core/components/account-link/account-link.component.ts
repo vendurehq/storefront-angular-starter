@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
@@ -8,16 +8,18 @@ import { DataService } from '../../providers/data/data.service';
 import { StateService } from '../../providers/state/state.service';
 
 @Component({
+    standalone: false,
     selector: 'vsf-account-link',
     templateUrl: './account-link.component.html',
     // styleUrls: ['./account-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountLinkComponent implements OnInit {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+
 
     activeCustomer$: Observable<GetActiveCustomerQuery['activeCustomer']>;
-    constructor(private dataService: DataService,
-                private stateService: StateService) {}
 
     ngOnInit() {
         const getActiveCustomer$ = this.dataService.query<GetActiveCustomerQuery>(GET_ACTIVE_CUSTOMER, {}, 'network-only');

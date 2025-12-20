@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
@@ -21,11 +21,18 @@ type Variant = NonNullable<GetProductDetailQuery['product']>['variants'][number]
 type Collection = NonNullable<GetProductDetailQuery['product']>['collections'][number];
 
 @Component({
+    standalone: false,
     selector: 'vsf-product-detail',
     templateUrl: './product-detail.component.html',
     styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private notificationService = inject(NotificationService);
+    private activeService = inject(ActiveService);
+    private route = inject(ActivatedRoute);
+
 
     product: GetProductDetailQuery['product'];
     selectedAsset: { id: string; preview: string; };
@@ -37,13 +44,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     @ViewChild('addedToCartTemplate', {static: true})
     private addToCartTemplate: TemplateRef<any>;
     private sub: Subscription;
-
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private notificationService: NotificationService,
-                private activeService: ActiveService,
-                private route: ActivatedRoute) {
-    }
 
     ngOnInit() {
         const lastCollectionSlug$ = this.stateService.select(state => state.lastCollectionSlug);

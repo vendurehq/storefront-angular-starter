@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,22 +10,23 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { ADD_PAYMENT, GET_ELIGIBLE_PAYMENT_METHODS } from './checkout-payment.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-checkout-payment',
     templateUrl: './checkout-payment.component.html',
     // styleUrls: ['./checkout-payment.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutPaymentComponent implements OnInit {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private router = inject(Router);
+    private route = inject(ActivatedRoute);
+
     cardNumber: string;
     expMonth: number;
     expYear: number;
     paymentMethods$: Observable<GetEligiblePaymentMethodsQuery['eligiblePaymentMethods']>
     paymentErrorMessage: string | undefined;
-
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private router: Router,
-                private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.paymentMethods$ = this.dataService.query<GetEligiblePaymentMethodsQuery>(GET_ELIGIBLE_PAYMENT_METHODS)

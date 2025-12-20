@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
 import { merge, Observable } from 'rxjs';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -16,23 +16,24 @@ import { ADJUST_ITEM_QUANTITY, REMOVE_ITEM_FROM_CART } from './cart-drawer.graph
 import { ActiveService } from '../../providers/active/active.service';
 
 @Component({
+    standalone: false,
     selector: 'vsf-cart-drawer',
     templateUrl: './cart-drawer.component.html',
     styleUrls: ['./cart-drawer.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartDrawerComponent implements OnInit {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private activeService = inject(ActiveService);
+    private notificationService = inject(NotificationService);
+
     @Input() visible = false;
     @Output() close = new EventEmitter<void>();
     @ViewChild('overlay') private overlayRef: ElementRef<HTMLDivElement>;
 
     cart$: Observable<GetActiveOrderQuery['activeOrder']>;
     isEmpty$: Observable<boolean>;
-
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private activeService: ActiveService,
-                private notificationService: NotificationService) {}
 
     ngOnInit() {
         this.cart$ = merge(

@@ -1,6 +1,6 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, NgModule, PLATFORM_ID } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
+import { NgModule, PLATFORM_ID, DOCUMENT, inject } from '@angular/core';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterModule, UrlSerializer } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -17,7 +17,8 @@ import { SharedModule } from './shared/shared.module';
     ],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled', initialNavigation: 'enabledBlocking' }),
+        // Hydration and enabledBlocking initial navigation conflict; omit initialNavigation when hydrating.
+        RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled' }),
         CoreModule,
         SharedModule,
         // Using the service worker appears to break SSR after the initial page load.
@@ -27,15 +28,19 @@ import { SharedModule } from './shared/shared.module';
         // }),
     ],
     bootstrap: [AppComponent],
+    providers: [
+        // Enable client-side hydration for SSR
+        provideClientHydration()
+    ]
 })
 export class AppModule {
+    private router = inject(Router);
+    private urlSerializer = inject(UrlSerializer);
+    private platformId = inject(PLATFORM_ID);
+    private document = inject<Document>(DOCUMENT);
 
-    constructor(
-        private router: Router,
-        private urlSerializer: UrlSerializer,
-        @Inject(PLATFORM_ID) private platformId: any,
-        @Inject(DOCUMENT) private document?: Document,
-    ) {
+
+    constructor() {
         if (isPlatformBrowser(this.platformId)) {
             this.handleScrollOnNavigations();
         }
@@ -55,7 +60,7 @@ export class AppModule {
         ).subscribe(event => {
             if (this.document?.defaultView) {
                 const parsed = this.urlSerializer.parse(event.urlAfterRedirects);
-                const primaryRoot = parsed.root.children.primary;
+                const primaryRoot = parsed.root.children['primary'];
                 const isFacetFilterNavigation = (primaryRoot?.segments[0]?.path === 'category' &&
                     primaryRoot?.segments[1]?.parameterMap.has('facets'));
 

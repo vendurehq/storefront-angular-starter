@@ -1,25 +1,18 @@
 import { isPlatformBrowser } from '@angular/common';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    HostBinding,
-    Inject,
-    OnDestroy,
-    PLATFORM_ID,
-    ViewChild,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostBinding, OnDestroy, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { bufferTime, filter, map } from 'rxjs/operators';
 
 @Component({
+    standalone: false,
     selector: 'vsf-layout-header',
     template: `<div class="floating-container" #floatingContainer><ng-content></ng-content></div>`,
     styleUrls: ['./layout-header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutHeaderComponent implements AfterViewInit, OnDestroy {
+    private platformId = inject(PLATFORM_ID);
+
 
     @HostBinding('class.floating')
     floating = false;
@@ -31,8 +24,6 @@ export class LayoutHeaderComponent implements AfterViewInit, OnDestroy {
     private floatingContainer: ElementRef<HTMLDivElement>;
 
     private subscription: Subscription;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {

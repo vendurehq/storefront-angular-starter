@@ -1,15 +1,6 @@
-import { ConnectedPosition, Overlay, OverlayConfig, PositionStrategy } from '@angular/cdk/overlay';
+import { ConnectedPosition, Overlay, OverlayConfig, OverlayModule, PositionStrategy } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ElementRef,
-    Input,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild, ViewContainerRef, inject } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime, filter, take } from 'rxjs/operators';
 
@@ -34,12 +25,16 @@ export type DropdownPosition = 'top' | 'right' | 'bottom' | 'left' | 'top-left' 
  * ```
  */
 @Component({
+    standalone: false,
     selector: 'vsf-dropdown',
     templateUrl: './dropdown.component.html',
     // styleUrls: ['./dropdown.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownComponent {
+    private overlay = inject(Overlay);
+    private viewContainerRef = inject(ViewContainerRef);
+
     /** If true, the dropdown will close when the user clicks anywhere on the document */
     @Input() closeOnDocumentClick = true;
     /** If true, the dropdown will open when the trigger element is hovered with the mouse */
@@ -54,8 +49,6 @@ export class DropdownComponent {
     private closeFn: (() => any) | null = null;
     private clickSubscriber: Subscription;
     private mouseoverSubscriber: Subscription;
-
-    constructor(private overlay: Overlay, private viewContainerRef: ViewContainerRef) { }
 
     onTriggerClick() {
         this.open();

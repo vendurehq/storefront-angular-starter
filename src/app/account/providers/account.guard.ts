@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -10,8 +10,9 @@ import { StateService } from '../../core/providers/state/state.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountGuard  {
+    private stateService = inject(StateService);
+    private dataService = inject(DataService);
 
-    constructor(private stateService: StateService, private dataService: DataService) {}
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
         return this.stateService.select(state => state.signedIn).pipe(

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { filter, map } from 'rxjs/operators';
 
@@ -15,19 +15,19 @@ import { DataService } from '../../../core/providers/data/data.service';
 import { UPDATE_CUSTOMER_DETAILS } from './account-customer-details.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-account-customer-details',
     templateUrl: './account-customer-details.component.html',
     // styleUrls: ['./account-customer-details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountCustomerDetailsComponent implements OnInit {
+    private dataService = inject(DataService);
+    private formBuilder = inject(UntypedFormBuilder);
+    private changeDetectorRef = inject(ChangeDetectorRef);
+
 
     form: UntypedFormGroup;
-
-    constructor(private dataService: DataService,
-                private formBuilder: UntypedFormBuilder,
-                private changeDetectorRef: ChangeDetectorRef) {
-    }
 
     ngOnInit() {
         this.dataService.query<GetActiveCustomerQuery>(GET_ACTIVE_CUSTOMER, {}, 'network-only').pipe(

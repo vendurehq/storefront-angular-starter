@@ -1,21 +1,24 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 import { AddressFragment, CountryFragment, OrderAddressFragment } from '../../../common/generated-types';
 
 @Component({
+    standalone: false,
     selector: 'vsf-address-form',
     templateUrl: './address-form.component.html',
     // styleUrls: ['./address-form.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddressFormComponent implements OnChanges {
+    private formBuilder = inject(UntypedFormBuilder);
+
 
     @Input() availableCountries: CountryFragment[];
     @Input() address: OrderAddressFragment | AddressFragment;
 
     addressForm: UntypedFormGroup;
-    constructor(private formBuilder: UntypedFormBuilder) {
+    constructor() {
         this.addressForm = this.formBuilder.group({
             fullName: '',
             company: '',

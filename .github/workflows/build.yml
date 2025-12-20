@@ -5,7 +5,7 @@ on:
 
 env:
   CI: true
-  node: 16.x
+  node: 22.x
 jobs:
   build:
     name: build

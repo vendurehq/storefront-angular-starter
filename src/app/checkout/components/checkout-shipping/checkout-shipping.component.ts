@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, Subject } from 'rxjs';
@@ -40,12 +40,22 @@ import {
 export type AddressFormValue = Pick<AddressFragment, Exclude<keyof AddressFragment, 'country'>> & { countryCode: string; };
 
 @Component({
+    standalone: false,
     selector: 'vsf-checkout-shipping',
     templateUrl: './checkout-shipping.component.html',
     // styleUrls: ['./checkout-shipping.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutShippingComponent implements OnInit, OnDestroy {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private changeDetector = inject(ChangeDetectorRef);
+    private modalService = inject(ModalService);
+    private notificationService = inject(NotificationService);
+    private formBuilder = inject(UntypedFormBuilder);
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
     @ViewChild('addressForm') addressForm: AddressFormComponent;
 
     customerAddresses$: Observable<AddressFragment[]>;
@@ -56,16 +66,6 @@ export class CheckoutShippingComponent implements OnInit, OnDestroy {
     shippingMethodId: string | undefined;
     contactForm: UntypedFormGroup;
     private destroy$ = new Subject<void>();
-
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private changeDetector: ChangeDetectorRef,
-                private modalService: ModalService,
-                private notificationService: NotificationService,
-                private formBuilder: UntypedFormBuilder,
-                private route: ActivatedRoute,
-                private router: Router) {
-    }
 
     ngOnInit() {
         this.contactForm = this.formBuilder.group({
@@ -192,6 +192,7 @@ export class CheckoutShippingComponent implements OnInit, OnDestroy {
                 })
             );
         }
+        return null;
     }
 
     private valueToAddressInput(value: AddressFormValue | AddressFragment): CreateAddressInput {

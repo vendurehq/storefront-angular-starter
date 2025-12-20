@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -9,18 +9,21 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { SIGN_OUT } from './account.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-account',
     templateUrl: './account.component.html',
     // styleUrls: ['./account.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountComponent {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private router = inject(Router);
+
 
     isSignedIn$: Observable<boolean>;
 
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private router: Router) {
+    constructor() {
         this.isSignedIn$ = this.stateService.select(state => state.signedIn);
     }
 

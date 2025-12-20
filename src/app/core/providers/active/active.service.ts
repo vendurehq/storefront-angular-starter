@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -11,10 +11,12 @@ import { GET_ACTIVE_ORDER } from './active.service.graphql';
     providedIn: 'root'
 })
 export class ActiveService {
+    private dataService = inject(DataService);
+
 
     activeOrder$: Observable<GetActiveOrderQuery['activeOrder']>;
 
-    constructor(private dataService: DataService) {
+    constructor() {
         this.activeOrder$ = this.dataService.query<GetActiveOrderQuery>(GET_ACTIVE_ORDER).pipe(map(({activeOrder}) => activeOrder));
     }
 }

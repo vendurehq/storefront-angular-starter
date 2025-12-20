@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { VerifyMutation, VerifyMutationVariables } from '../../../common/generated-types';
@@ -8,18 +8,19 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { VERIFY } from './verify.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-verify',
     templateUrl: './verify.component.html',
     // styleUrls: ['./verify.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class VerifyComponent {
-    password = '';
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
 
-    constructor(private route: ActivatedRoute,
-                private router: Router,
-                private dataService: DataService,
-                private stateService: StateService) { }
+    password = '';
 
     verify() {
         const password = this.password;

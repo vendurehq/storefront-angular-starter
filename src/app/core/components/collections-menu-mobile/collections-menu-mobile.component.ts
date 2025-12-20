@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,22 +12,23 @@ import { arrayToTree, RootNode, TreeNode } from '../collections-menu/array-to-tr
 
 type CollectionItem = GetCollectionsQuery['collections']['items'][number];
 @Component({
+    standalone: false,
     selector: 'vsf-collections-menu-mobile',
     templateUrl: './collections-menu-mobile.component.html',
     styleUrls: ['./collections-menu-mobile.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CollectionsMenuMobileComponent implements OnInit {
+    private router = inject(Router);
+    private stateService = inject(StateService);
+    private dataService = inject(DataService);
+
     @HostBinding('class.visible')
     @Input() visible = false;
 
     collectionTree$: Observable<RootNode<CollectionItem>>;
     selected0: string | null = null;
     selected1: string | null = null;
-
-    constructor(private router: Router,
-                private stateService: StateService,
-                private dataService: DataService) { }
 
     ngOnInit() {
         this.collectionTree$ = this.dataService.query<GetCollectionsQuery, GetCollectionsQueryVariables>(GET_COLLECTIONS, {

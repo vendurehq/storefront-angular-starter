@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, TemplateRef, Type } from '@angular/core';
+import { ChangeDetectorRef, Component, TemplateRef, Type, inject } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { Dialog, DIALOG_COMPONENT, MODAL_OPTIONS, ModalOptions } from '../../providers/modal/modal-types';
@@ -10,19 +10,18 @@ import { DialogButtonsDirective } from './dialog-buttons.directive';
  * directly in templates. See {@link ModalService.fromComponent} method for more detail.
  */
 @Component({
+    standalone: false,
     selector: 'vsf-modal-dialog',
     templateUrl: './modal-dialog.component.html',
     // styleUrls: ['./modal-dialog.component.scss'],
 })
 export class ModalDialogComponent<T extends Dialog<any>> {
+    childComponentType = inject<Type<T>>(DIALOG_COMPONENT);
+    options? = inject<ModalOptions<T>>(MODAL_OPTIONS);
+
     closeModal: (result?: any) => void;
     titleTemplateRef$ = new Subject<TemplateRef<any>>();
     buttonsTemplateRef$ = new Subject<TemplateRef<any>>();
-
-    constructor(
-        @Inject(DIALOG_COMPONENT) public childComponentType: Type<T>,
-        @Inject(MODAL_OPTIONS) public options?: ModalOptions<T>,
-    ) {}
 
     /**
      * This callback is invoked when the childComponentType is instantiated in the

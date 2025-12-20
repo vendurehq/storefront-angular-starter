@@ -1,11 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpHeaders } from '@angular/common/http';
-import { FactoryProvider, Optional, PLATFORM_ID } from '@angular/core';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
-import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/core';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { FactoryProvider, Optional, PLATFORM_ID, makeStateKey, TransferState } from '@angular/core';
+import { map } from 'rxjs/operators';
+
+import { ApolloClient, ApolloLink, InMemoryCache } from '@apollo/client/core';
+import { REQUEST } from '../../express.tokens';
 import { APOLLO_OPTIONS } from 'apollo-angular';
-import { HttpLink, Options } from 'apollo-angular/http';
+import { HttpLink } from 'apollo-angular/http';
 import { Request } from 'express';
 
 import { environment } from '../../environments/environment';
@@ -43,7 +44,7 @@ export function apolloOptionsFactory(
     platformId: object,
     transferState: TransferState,
     req?: Request,
-): ApolloClientOptions<any> {
+): ApolloClient.Options {
     const AUTH_TOKEN_KEY = 'auth_token';
     apolloCache = new InMemoryCache({
         possibleTypes: possibleTypesResult.possibleTypes,
@@ -103,23 +104,22 @@ export function apolloOptionsFactory(
 
     const {apiHost, apiPort, shopApiPath} = environment;
     const uri = `${apiHost}:${apiPort}/${shopApiPath}`;
-    const options: Options = {
+    const options = {
         uri,
         withCredentials: false,
     };
 
-    const http = httpLink.create(options);
     const afterware = new ApolloLink((operation, forward) => {
-        return forward(operation).map((response) => {
+        return forward(operation).pipe(map((response: ApolloLink.Result) => {
             const context = operation.getContext();
-            const authHeader = context.response.headers.get('vendure-auth-token');
+            const authHeader = context['response'].headers.get('vendure-auth-token');
             if (authHeader && isPlatformBrowser(platformId)) {
                 // If the auth token has been returned by the Vendure
                 // server, we store it in localStorage
                 localStorage.setItem(AUTH_TOKEN_KEY, authHeader);
             }
             return response;
-        });
+        }));
     });
     const middleware = new ApolloLink((operation, forward) => {
         if (isPlatformBrowser(platformId)) {
@@ -145,6 +145,8 @@ export function apolloOptionsFactory(
         // Reset apolloCache after extraction to avoid sharing between requests
         apolloCache.reset();
     }
+
+    const http = httpLink.create(options);
 
     return {
         cache: apolloCache,

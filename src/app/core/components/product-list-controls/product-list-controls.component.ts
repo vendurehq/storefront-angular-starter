@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SearchProductsQuery } from '../../../common/generated-types';
@@ -15,20 +15,21 @@ export interface FacetWithValues {
 }
 
 @Component({
+    standalone: false,
     selector: 'vsf-product-list-controls',
     templateUrl: './product-list-controls.component.html',
     // styleUrls: ['./product-list-controls.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListControlsComponent implements OnChanges {
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
     @Input() activeFacetValueIds: string[] = [];
     @Input() facetValues: SearchProductsQuery['search']['facetValues'] | null;
     @Input() totalResults = 0;
     facets: FacetWithValues[];
     manuallyExpanded = false;
-
-    constructor(private route: ActivatedRoute, private router: Router) {
-    }
 
     get filtersExpanded(): boolean {
         return this.manuallyExpanded || this.activeFacetValueIds.length > 0;

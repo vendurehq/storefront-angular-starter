@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ResetPasswordMutation, ResetPasswordMutationVariables } from '../../../common/generated-types';
@@ -8,20 +8,23 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { RESET_PASSWORD } from './reset-password.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-reset-password',
     templateUrl: './reset-password.component.html',
     // styleUrls: ['./reset-password.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordComponent {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
     password = '';
     error = '';
     private readonly token: string | undefined;
 
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private route: ActivatedRoute,
-                private router: Router) {
+    constructor() {
         this.token = this.route.snapshot.queryParamMap.get('token') || undefined;
         if (!this.token) {
             this.error = 'No token provided! Cannot reset password.';

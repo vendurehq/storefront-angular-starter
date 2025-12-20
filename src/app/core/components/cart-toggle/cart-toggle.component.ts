@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { from, interval, merge, Observable, timer, zip } from 'rxjs';
 import { delay, distinctUntilChanged, map, refCount, share, shareReplay, switchMap } from 'rxjs/operators';
 
@@ -9,18 +9,18 @@ import { StateService } from '../../providers/state/state.service';
 import { GET_CART_TOTALS } from './cart-toggle.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-cart-toggle',
     templateUrl: './cart-toggle.component.html',
     styleUrls: ['./cart-toggle.component.scss'],
 })
 export class CartToggleComponent implements OnInit {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+
     @Output() toggle = new EventEmitter<void>();
     cart$: Observable<{ total: number; quantity: number; }>;
     cartChangeIndication$: Observable<boolean>;
-
-    constructor(private dataService: DataService,
-                private stateService: StateService) {
-    }
 
     ngOnInit() {
         this.cart$ = merge(
@@ -42,9 +42,9 @@ export class CartToggleComponent implements OnInit {
             switchMap(() => zip(
                     from([true, false]),
                     timer(0, 1000),
-                    val => val,
                 ),
             ),
+            map(([boolean, _]) => boolean),
         );
     }
 }

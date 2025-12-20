@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay, take } from 'rxjs/operators';
@@ -12,8 +12,8 @@ export type ActiveOrderStream = Observable<GetOrderForCheckoutQuery['activeOrder
 
 @Injectable({ providedIn: 'root' })
 export class CheckoutResolver  {
+    private dataService = inject(DataService);
 
-    constructor(private dataService: DataService) {}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ActiveOrderStream> {
         const activeOrder$ = this.dataService.query<GetOrderForCheckoutQuery>(GET_ORDER_FOR_CHECKOUT).pipe(

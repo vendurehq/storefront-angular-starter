@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,10 +15,10 @@ import { GET_ORDER_FOR_CHECKOUT } from './checkout-resolver.graphql';
 
 @Injectable({ providedIn: 'root' })
 export class CheckoutGuard  {
+    private router = inject(Router);
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
 
-    constructor(private router: Router,
-                private dataService: DataService,
-                private stateService: StateService) {}
 
     canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
         const orderState$ = this.dataService.query<GetOrderForCheckoutQuery>(GET_ORDER_FOR_CHECKOUT, undefined, 'cache-first').pipe(

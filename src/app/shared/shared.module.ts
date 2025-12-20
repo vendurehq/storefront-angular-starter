@@ -66,7 +66,7 @@ const IMPORTS = [
 @NgModule({
     declarations: SHARED_DECLARATIONS,
     imports: IMPORTS,
-    exports: [...IMPORTS, ...SHARED_DECLARATIONS],
+    exports: [...IMPORTS, ...SHARED_DECLARATIONS]
 })
 export class SharedModule {
 }

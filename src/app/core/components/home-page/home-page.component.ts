@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
@@ -9,18 +9,18 @@ import { GetCollectionsQuery } from '../../../common/generated-types';
 import { DataService } from '../../providers/data/data.service';
 
 @Component({
+    standalone: false,
     selector: 'vsf-home-page',
     templateUrl: './home-page.component.html',
     styleUrls: ['./home-page.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePageComponent implements OnInit {
+    private dataService = inject(DataService);
+
 
     collections$: Observable<GetCollectionsQuery['collections']['items']>;
     heroImage: SafeUrl;
-
-    constructor(private dataService: DataService) {
-    }
 
     ngOnInit(): void {
         this.collections$ = this.dataService.query<GetCollectionsQuery>(GET_COLLECTIONS, {

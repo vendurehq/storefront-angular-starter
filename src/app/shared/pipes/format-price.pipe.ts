@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectorRef, Pipe, PipeTransform, inject } from '@angular/core';
 import { map, take } from 'rxjs/operators';
 
 import { GetActiveChannelQuery } from '../../common/generated-types';
@@ -17,15 +17,17 @@ let channelDataPromise: Promise<any>;
  * to the currencyCode of the current Channel.
  */
 @Pipe({
+    standalone: false,
     name: 'formatPrice',
     pure: false,
 })
 export class FormatPricePipe implements PipeTransform {
+    private changeDetector = inject(ChangeDetectorRef);
+    private dataService = inject(DataService);
+
 
     private latestValue: any = null;
     private latestReturnedValue: any = null;
-
-    constructor(private changeDetector: ChangeDetectorRef, private dataService: DataService) {}
 
     transform(value: number) {
         if (this.latestValue !== value) {

@@ -1,16 +1,7 @@
 import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-    Inject,
-    OnDestroy,
-    OnInit,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-} from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef, DOCUMENT, inject } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { debounceTime, map, takeUntil } from 'rxjs/operators';
 
@@ -23,12 +14,18 @@ import { arrayToTree, RootNode, TreeNode } from './array-to-tree';
 type CollectionItem = GetCollectionsQuery['collections']['items'][number];
 
 @Component({
+    standalone: false,
     selector: 'vsf-collections-menu',
     templateUrl: './collections-menu.component.html',
     // styleUrls: ['./collections-menu.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CollectionsMenuComponent implements OnInit, OnDestroy {
+    private document = inject<Document>(DOCUMENT);
+    private dataService = inject(DataService);
+    private overlay = inject(Overlay);
+    private viewContainerRef = inject(ViewContainerRef);
+
 
     collectionTree$: Observable<RootNode<CollectionItem>>;
     activeCollection: TreeNode<CollectionItem> | null;
@@ -39,12 +36,6 @@ export class CollectionsMenuComponent implements OnInit, OnDestroy {
     private overlayIsOpen$ = new Subject<boolean>();
     private setActiveCollection$ = new Subject<TreeNode<CollectionItem>>();
     private destroy$ = new Subject();
-
-    constructor(@Inject(DOCUMENT) private document: Document,
-                private dataService: DataService,
-                private overlay: Overlay,
-                private viewContainerRef: ViewContainerRef) {
-    }
 
     ngOnInit() {
         this.collectionTree$ = this.dataService.query<GetCollectionsQuery, GetCollectionsQueryVariables>(GET_COLLECTIONS, {
@@ -73,7 +64,7 @@ export class CollectionsMenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.destroy$.next();
+        this.destroy$.next(null);
         this.destroy$.complete();
     }
 

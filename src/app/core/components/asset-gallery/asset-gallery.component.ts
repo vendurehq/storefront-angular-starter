@@ -1,19 +1,23 @@
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, PLATFORM_ID, ViewChild, inject } from '@angular/core';
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 
 import { AssetFragment } from '../../../common/generated-types';
 
-import './types.d';
+// Type declarations for photoswipe are provided via ambient module declarations
+// in './types.d.ts' and included by tsconfig; no runtime import needed here.
 import { isPlatformBrowser } from '@angular/common';
 
 export type AssetWithDimensions = Pick<AssetFragment, 'id' | 'preview' | 'width' | 'height'>;
 
 @Component({
+    standalone: false,
     selector: 'vsf-asset-gallery',
     templateUrl: './asset-gallery.component.html',
     styleUrls: ['./asset-gallery.component.scss'],
 })
 export class AssetGalleryComponent implements OnInit, OnChanges, AfterViewInit {
+    private platformId = inject(PLATFORM_ID);
+
     @Input() assets?: AssetWithDimensions[] = [];
     @Input() selectedAssetId: string;
     @ViewChild('mainPreview', {static: false})
@@ -22,9 +26,6 @@ export class AssetGalleryComponent implements OnInit, OnChanges, AfterViewInit {
 
     selectedAsset?: AssetWithDimensions;
     private gallery: any;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {
-    }
 
     ngOnInit() {
         this.selectImage(this.selectedAssetId);

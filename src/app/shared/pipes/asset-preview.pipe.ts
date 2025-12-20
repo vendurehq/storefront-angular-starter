@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { AssetFragment } from '../../common/generated-types';
 
 @Pipe({
+    standalone: false,
     name: 'assetPreview',
 })
 export class AssetPreviewPipe implements PipeTransform {

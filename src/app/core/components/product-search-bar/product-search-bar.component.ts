@@ -1,22 +1,25 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
+    standalone: false,
     selector: 'vsf-product-search-bar',
     templateUrl: './product-search-bar.component.html',
     // styleUrls: ['./product-search-bar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductSearchBarComponent implements OnInit, OnDestroy {
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
     /** If true, searches as you type */
     @Input() autoSearch = false;
 
     searchTerm = new UntypedFormControl('');
     private subscription: Subscription;
-    constructor(private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit() {
         if (this.autoSearch) {

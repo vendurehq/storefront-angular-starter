@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -16,17 +16,19 @@ import { Dialog } from '../../../core/providers/modal/modal-types';
 import { CREATE_ADDRESS } from './address-modal.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-address-modal',
     templateUrl: './address-modal.component.html',
     // styleUrls: ['./address-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AddressModalComponent implements Dialog<AddressFragment>, OnInit {
+    private dataService = inject(DataService);
+
     resolveWith: (result?: any) => void;
     address: AddressFragment;
     title: string;
     availableCountries$: Observable<CountryFragment[]>;
-    constructor(private dataService: DataService) {}
 
     ngOnInit() {
         this.availableCountries$ = this.dataService.query<GetAvailableCountriesQuery>(GET_AVAILABLE_COUNTRIES).pipe(

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'vsf-centered-card',
     templateUrl: './centered-card.component.html',
     styleUrls: ['./centered-card.component.scss'],

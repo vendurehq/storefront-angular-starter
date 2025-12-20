@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { filter, map, mergeMap, shareReplay, switchMap, take } from 'rxjs/operators';
@@ -17,20 +17,21 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { GET_ORDER_BY_CODE } from './checkout-confirmation.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-checkout-confirmation',
     templateUrl: './checkout-confirmation.component.html',
     // styleUrls: ['./checkout-confirmation.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckoutConfirmationComponent implements OnInit {
+    private stateService = inject(StateService);
+    private dataService = inject(DataService);
+    private changeDetector = inject(ChangeDetectorRef);
+    private route = inject(ActivatedRoute);
+
     registrationSent = false;
     order$: Observable<GetOrderByCodeQuery['orderByCode']>;
     notFound$: Observable<boolean>;
-
-    constructor(private stateService: StateService,
-                private dataService: DataService,
-                private changeDetector: ChangeDetectorRef,
-                private route: ActivatedRoute) { }
 
     ngOnInit() {
         const orderRequest$ = this.route.paramMap.pipe(

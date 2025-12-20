@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { SignInMutation, SignInMutationVariables } from '../../../common/generated-types';
@@ -8,12 +8,18 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { SIGN_IN } from './sign-in.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-sign-in',
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent {
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+    private router = inject(Router);
+    private changeDetector = inject(ChangeDetectorRef);
+
     @Input() navigateToOnSuccess: any[] | undefined;
     @Input() displayRegisterLink = true;
 
@@ -21,11 +27,6 @@ export class SignInComponent {
     password: string;
     rememberMe = false;
     invalidCredentials = false;
-
-    constructor(private dataService: DataService,
-                private stateService: StateService,
-                private router: Router,
-                private changeDetector: ChangeDetectorRef) {}
 
     signIn() {
         this.dataService.mutate<SignInMutation, SignInMutationVariables>(SIGN_IN, {

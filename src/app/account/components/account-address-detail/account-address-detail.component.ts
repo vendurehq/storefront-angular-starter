@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
@@ -18,18 +18,20 @@ import { AddressFormComponent } from '../../../shared/components/address-form/ad
 import { UPDATE_ADDRESS } from './account-address-detail.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-account-address-detail',
     templateUrl: './account-address-detail.component.html',
     // styleUrls: ['./account-address-detail.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountAddressDetailComponent implements OnInit {
+    private route = inject(ActivatedRoute);
+    private dataService = inject(DataService);
+
 
     address$: Observable<NonNullable<NonNullable<GetCustomerAddressesQuery['activeCustomer']>['addresses']>[number] | undefined>;
     availableCountries$: Observable<GetAvailableCountriesQuery['availableCountries']>;
     @ViewChild('addressForm', { static: true }) private addressForm: AddressFormComponent;
-
-    constructor(private route: ActivatedRoute, private dataService: DataService) { }
 
     ngOnInit() {
         this.address$ = this.route.paramMap.pipe(

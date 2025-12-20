@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
@@ -20,11 +20,17 @@ import { GET_COLLECTION, SEARCH_PRODUCTS } from './product-list.graphql';
 type SearchItem = SearchProductsQuery['search']['items'][number];
 
 @Component({
+    standalone: false,
     selector: 'vsf-product-list',
     templateUrl: './product-list.component.html',
 // styleUrls: ['./product-list.component.scss'],
     })
 export class ProductListComponent implements OnInit {
+    private dataService = inject(DataService);
+    private route = inject(ActivatedRoute);
+    private stateService = inject(StateService);
+    private sanitizer = inject(DomSanitizer);
+
     products$: Observable<SearchItem[]>;
     totalResults$: Observable<number>;
     collection$: Observable<GetCollectionQuery['collection']>;
@@ -39,11 +45,6 @@ export class ProductListComponent implements OnInit {
     private currentPage = 0;
     private refresh = new BehaviorSubject<void>(undefined);
     readonly placeholderProducts = Array.from({ length: 12 }).map(() => null);
-
-    constructor(private dataService: DataService,
-                private route: ActivatedRoute,
-                private stateService: StateService,
-                private sanitizer: DomSanitizer) { }
 
     ngOnInit() {
         const perPage = 24;

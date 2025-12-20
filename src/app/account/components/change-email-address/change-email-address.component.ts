@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { VerifyChangeEmailAddressMutation, VerifyChangeEmailAddressMutationVariables } from '../../../common/generated-types';
@@ -8,18 +8,20 @@ import { StateService } from '../../../core/providers/state/state.service';
 import { VERIFY_CHANGE_EMAIL_ADDRESS } from './change-email-address.graphql';
 
 @Component({
+    standalone: false,
     selector: 'vsf-change-email-address',
     templateUrl: './change-email-address.component.html',
     // styleUrls: ['./change-email-address.component.scss'],
     changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ChangeEmailAddressComponent implements OnInit {
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+    private dataService = inject(DataService);
+    private stateService = inject(StateService);
+
     message = 'Verifying new email address...';
     state: 'error' | 'success' | 'pending' = 'pending';
-    constructor(private route: ActivatedRoute,
-                private router: Router,
-                private dataService: DataService,
-                private stateService: StateService) { }
 
     ngOnInit() {
         this.verify();
